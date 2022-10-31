@@ -20,8 +20,6 @@ Gossip.destroy_all
 Tag.destroy_all
 Taglist.destroy_all
 
-
-
 10.times do
     cit = City.create(name: Faker::Address.city, zip_code: Faker::Number.number(digits: 5))
 end
