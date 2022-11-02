@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   get 'pages/potin/:id', to: 'pages#potin'
   get 'pages/author/:id', to: 'pages#author'
 
+  resources :gossips, only: [:new, :create]
+
 end
