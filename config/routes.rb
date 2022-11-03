@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root 'pages#home'
+  root 'gossips#index'
 
   get '/pages/team', to: 'pages#team'
   get '/pages/contact', to: 'pages#contact'
@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get 'pages/potin/:id', to: 'pages#potin'
   get 'pages/author/:id', to: 'pages#author'
 
-  resources :gossips, only: [:new, :create]
+  resources :gossips
+  resources :authors, only: [:show]
+  resources :cities, only: [:show]
+  resources :comments, only: [:edit, :update, :destroy, :create]
 
 end

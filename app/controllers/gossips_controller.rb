@@ -1,31 +1,60 @@
 class GossipsController < ApplicationController
 
+    def index
+        @gosall= Gossip.all
+    end
+
+    def show
+        @gosid= Gossip.find(params[:id])
+        @goscom = @gosid.comments
+   
+    end
+
     def new
         # Méthode qui crée un potin vide et l'envoie à une view qui affiche le formulaire pour 'le remplir' (new.html.erb)
     end
 
+    def edit
+        puts params[:id]
+        @gosid= Gossip.find(params[:id])
+    end
+
+    def update
+        puts "1" * 100
+        @gosid = Gossip.find(params[:id])
+        puts @gosid.inspect
+        puts "2" * 100
+        post_parms = params.require(:gossip).permit(:title, :content)
+        puts post_parms
+        puts "3" * 100
+
+        if @gosid.update(post_parms)
+            puts "4" * 100
+          redirect_to @gosid
+        else
+            puts "5" * 100
+          render :edit
+        end
+
+    end
+
   
     def create
-  
+
+        @post = Gossip.new('title' => params[:title],'content' => params[:content], 'user_id' => 21)
         
-        puts "step 1"
-
-        @post = Gossip.new('title' => params[:title],'content' => params[:content], 'user_id' => 1)
-            
-
         if @post.save
-            redirect_to root_path, notice: "Succes"
-        else
-            puts "step loose"
-
-           
-            render 'new', notice: "Sucddces"
-            puts "hhhhhhhhhhhhh"
-           
-           
+            redirect_to root_path
+        else  
+            render 'new'
         end
    
-   
+    end
+
+    def destroy
+        @gosid= Gossip.find(params[:id])
+        @gosid.destroy
+        redirect_to root_path
     end
 
 end

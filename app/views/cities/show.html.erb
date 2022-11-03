@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column  align-items-center">
+    <a class="navbar-brand" href="<%= root_path %>">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href= <%= pages_team_path %> >Team <span class="sr-only"></span></a>
+          <a class="nav-item nav-link" href="<%= pages_contact_path %>">Contact</a>
+    
+        </div>
+      </div>
+    </nav>
+    
+    <div class="container">
+        <h1 class="text-center">Les gossips de <%= @cityid.name %>  </h1>
+    
+
+    <br>
+
+<% @citygos.each do |i| %>
+    <%  k = i.gossips %>
+
+    <% k.each do |j| %>    
+
+        <div class="card text-center">
+
+            <div class="card-header">Gossip n°<%= j.id %></div>
+
+            <div class="card-body">
+
+                <h5 class="card-title"><%= j.title %></h5>
+                <p class="card-text"><%= j.content %></p>
+
+            </div>
+
+            <div class="card-footer">Gossip de <%= j.user.first_name %></div>
+       
+        </div>
+
+        <br>
+
+    <% end %>
+
+<% end %>
+
+    </div>

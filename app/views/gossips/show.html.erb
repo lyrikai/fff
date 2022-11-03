@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column  align-items-center">
+<a class="navbar-brand" href="<%= root_path %>">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href= <%= pages_team_path %> >Team <span class="sr-only"></span></a>
+      <a class="nav-item nav-link" href="<%= pages_contact_path %>">Contact</a>
+      <a class="nav-item nav-link" href="../gossips/new">New</a>
+
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
+
+<br>
+
+<div class="card text-center">
+  <div class="card-header">
+  Potin n°<%= @gosid.id  %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= @gosid.title  %></h5>
+
+    <p class="card-text"><%= @gosid.content  %></p>
+   
+    <a href="<%= author_path(@gosid.user.id)%>" class="btn btn-primary">Ecrit par: <%= @gosid.user.first_name %></a>
+    <br>
+    <br>
+    <p class="card-text"><a href="<%= city_path(@gosid.user.city.id)%>">Ecrit à: <%= @gosid.user.city.name  %></a> </p>
+    <%= form_tag url_for(action: 'destroy'), method: "delete" do %>
+
+      <%= submit_tag "Supprimer" %>
+
+    <% end %>
+  </div>
+  <div class="card-footer text-muted"><a href="/gossips/<%= @gosid.id%>/edit"> Edit</a></div>
+</div>
+
+<br>
+
+<%= form_tag url_for(:action=>"create", :controller=>"comments"), method: "post" do %>
+
+      <%= label_tag 'Comment' %>
+      <%= text_area_tag 'content', @com %>
+      <%= hidden_field_tag 'gossip_id', @gosid.id %>
+      <br /> <br />
+
+      <%= submit_tag "Create Comment" %>
+
+    <% end %>
+<br>
+
+
+ <%  @goscom.each do |i|  %>
+
+    <div class="card">
+        <h5 class="card-header">Commentaire n°<%= i.id  %> </h5>
+        <div class="card-body">
+         <h5 class="card-title">Author: <%= i.user.first_name  %></h5>
+        <h5 class="card-title">Text: <%= i.content  %></h5>
+
+        </div>
+      <div class="card-footer text-muted"><a href="/comments/<%= i.id%>/edit"> Edit</a></div>
+
+
+    </div>
+    <br>
+
+    <% end %>
+    
+
+
+
+</div>
+
+ 

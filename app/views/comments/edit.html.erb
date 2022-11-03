@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column  align-items-center">
+<a class="navbar-brand" href="<%= root_path %>">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href= <%= pages_team_path %> >Team <span class="sr-only"></span></a>
+      <a class="nav-item nav-link" href="<%= pages_contact_path %>">Contact</a>
+
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
+    <h1> Edition du commentaire n° <%= @comidf.id  %> </h1>
+<br>
+
+<div class="card text-center">
+  <div class="card-header">
+  Comment n°<%= @comidf.id  %>
+  </div>
+  <div class="card-body">
+
+    <p class="card-text"><%= @comidf.content  %></p>
+   
+    <a href="<%= author_path(@comidf.user.id)%>" class="btn btn-primary">Ecrit par: <%= @comidf.user.first_name %></a>
+    <br>
+    <br>
+  </div>
+    <%= form_tag url_for(action: 'destroy'), method: "delete" do %>
+
+      <%= submit_tag "Supprimer" %>
+
+    <% end %>
+
+
+  <div class="card-footer text-muted">
+  <%= @comidf.created_at  %>
+  </div>
+</div>
+
+
+    <%= form_for @comidf do |i| %>
+
+        <div class="form-group">
+            <label> Nouveau content </label>
+            <%= i.text_area :content, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+            <button type="submit"> Go </button>
+        </div>
+
+    <% end %>
+
+
+
+
+
+</div>

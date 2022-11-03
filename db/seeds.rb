@@ -17,8 +17,7 @@
 User.destroy_all
 City.destroy_all
 Gossip.destroy_all
-Tag.destroy_all
-Taglist.destroy_all
+
 
 10.times do
     cit = City.create(name: Faker::Address.city, zip_code: Faker::Number.number(digits: 5))
@@ -38,9 +37,27 @@ userf = User.first.id
     userrand = rand(0..9) 
     usertotal = userrand + userf
     cool = User.find(usertotal)
-    gos = Gossip.create(title: Faker::Lorem.sentence(word_count: 3), content: Faker::Lorem.sentence(word_count: 10, supplemental: true, random_words_to_add: 4), user: cool)
+    gos = Gossip.create(title: Faker::Alphanumeric.alpha(number: 10), content: Faker::Lorem.sentence(word_count: 10, supplemental: true, random_words_to_add: 4), user: cool)
 end
 
+gosf = Gossip.first.id
+
+40.times do
+    userrand = rand(0..9) 
+    usertotal = userrand + userf
+    cool = User.find(usertotal)
+
+    gosrand = rand(0..19) 
+    gostotal = gosrand + gosf
+    cool2 = Gossip.find(gostotal)
+
+
+    gos = Comment.create(content: Faker::Alphanumeric.alpha(number: 10), user: cool, gossip: cool2)
+end
+
+
+
+=begin
 tagr = 0
 10.times do 
    
@@ -86,4 +103,4 @@ gossipf = Gossip.first.id
     tl = Taglist.create(tag: tag, gossip: gos)
 end
 
-
+=end
