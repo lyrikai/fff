@@ -1,18 +1,3 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column  align-items-center">
-<a class="navbar-brand" href="<%= root_path %>">Home</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href= <%= pages_team_path %> >Team <span class="sr-only"></span></a>
-      <a class="nav-item nav-link" href="<%= pages_contact_path %>">Contact</a>
-      <a class="nav-item nav-link" href="../gossips/new">New</a>
-
-    </div>
-  </div>
-</nav>
-
 
 <div class="container">
 
@@ -37,7 +22,21 @@
 
     <% end %>
   </div>
-  <div class="card-footer text-muted"><a href="/gossips/<%= @gosid.id%>/edit"> Edit</a></div>
+
+    <% if logged_in?  %>
+
+          <% if current_user.id == @gosid.user.id %>
+
+            <div class="card-footer text-muted"><a href="/gossips/<%= @gosid.id%>/edit"> Edit</a></div>
+
+          <%else %>
+
+          <% end %>
+
+    <%else %>
+
+    <% end %>
+
 </div>
 
 <br>
@@ -64,7 +63,21 @@
         <h5 class="card-title">Text: <%= i.content  %></h5>
 
         </div>
-      <div class="card-footer text-muted"><a href="/comments/<%= i.id%>/edit"> Edit</a></div>
+
+        <% if logged_in?  %>
+
+          <% if current_user.id == i.user.id %>
+
+            <div class="card-footer text-muted"><a href="/gossips/<%= @gosid.id%>/edit"> Edit</a></div>
+
+          <%else %>
+
+          <% end %>
+
+    <%else %>
+
+    <% end %>
+
 
 
     </div>

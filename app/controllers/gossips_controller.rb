@@ -1,5 +1,7 @@
 class GossipsController < ApplicationController
 
+    before_action :authenticate_user, only: [:create]
+    
     def index
         @gosall= Gossip.all
     end
@@ -16,7 +18,7 @@ class GossipsController < ApplicationController
 
     def edit
         puts params[:id]
-        @gosid= Gossip.find(params[:id])
+        @gosid = Gossip.find(params[:id])
     end
 
     def update
@@ -40,8 +42,8 @@ class GossipsController < ApplicationController
 
   
     def create
-
-        @post = Gossip.new('title' => params[:title],'content' => params[:content], 'user_id' => 21)
+    
+        @post = Gossip.new('title' => params[:title],'content' => params[:content], 'user_id' => current_user.id)
         
         if @post.save
             redirect_to root_path
@@ -56,5 +58,14 @@ class GossipsController < ApplicationController
         @gosid.destroy
         redirect_to root_path
     end
+
+    private
+
+    def authenticate_user
+        unless current_user
+          redirect_to new_session_path
+        end
+    end
+
 
 end

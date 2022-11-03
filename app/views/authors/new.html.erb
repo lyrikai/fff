@@ -1,0 +1,47 @@
+
+
+<section>
+
+    <%= form_tag url_for(action: 'create'), method: "post" do %>
+
+      <%= label_tag 'first name' %>
+      <%= text_field_tag 'first_name', @post %>
+      <br /> <br />
+
+       <%= label_tag 'last name' %>
+      <%= text_field_tag 'last_name', @post %>
+      <br /> <br />
+
+       <%= label_tag 'email' %>
+      <%= text_field_tag 'email', @post %>
+      <br /> <br />
+
+        <%= label_tag 'age' %>
+      <%= text_field_tag 'age', @post %>
+      <br /> <br />
+
+       <%= label_tag 'description' %>
+      <%= text_field_tag 'description', @post %>
+      <br /> <br />
+
+        <%= label_tag 'city id' %>
+      <%= text_field_tag 'city_id', @post %>
+      <br /> <br />
+
+        <%= label_tag 'password' %>
+      <%= password_field_tag 'password', @post %>
+      <br /> <br />
+
+      <%= submit_tag "S'iscrire" %>
+
+    <% end %>
+
+       <%= @i %>
+
+     <% flash.each do |type, msg| %>
+      <div class="alert alert-danger">
+     <%= msg %>
+      </div>
+    <% end %>
+
+</section>

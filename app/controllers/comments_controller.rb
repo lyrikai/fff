@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
 
+    before_action :authenticate_user, only: [:create]
+
     def index
         @comall = Comment.all
     end
@@ -32,10 +34,8 @@ class CommentsController < ApplicationController
 
   
     def create
-     
-    
       
-        @com = Comment.new('content' => params[:content], 'user_id' => 21, 'gossip_id' => params[:gossip_id])
+        @com = Comment.new('content' => params[:content], 'user_id' => current_user.id, 'gossip_id' => params[:gossip_id])
         puts "-" * 60
         puts @com.inspect
         
@@ -52,5 +52,14 @@ class CommentsController < ApplicationController
         @gosid= Comment.find(params[:id])
         @gosid.destroy
         redirect_to gossip_path(@gosid.gossip.id)
+    end
+
+
+    private
+
+    def authenticate_user
+        unless current_user
+          redirect_to new_session_path
+        end
     end
 end
