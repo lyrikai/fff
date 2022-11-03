@@ -9,11 +9,13 @@
 <% @citygos.each do |i| %>
     <%  k = i.gossips %>
 
-    <% k.each do |j| %>    
+    <% k.each do |j| %>   
+
+    <% @a = j.id %> 
 
         <div class="card text-center">
 
-            <div class="card-header">Gossip n°<%= j.id %></div>
+            <div class="card-header">Gossip n°<%= j.id %>  / Like <%= j.likes.count %></div>
 
             <div class="card-body">
 
@@ -23,6 +25,47 @@
             </div>
 
             <div class="card-footer">Gossip de <%= j.user.first_name %></div>
+
+            <% if logged_in? %>
+
+             <% @like =  Like.find_by(gossip: j.id, user: current_user.id) %>
+
+             <% end %>
+
+            <% if @like %>
+               
+
+              <% if @like.user.id == current_user.id && @like.gossip.id == j.id %>
+
+              <%= form_tag url_for(:action=>"destroy", :controller=>"likes"), method: "delete" do %>
+
+              <%= hidden_field_tag 'gossip_id', j.id %>
+
+              <%= submit_tag "Unlike" %>
+
+              <% end %>
+
+              <%else %>
+
+              <% end %>
+
+            <%else %>
+      
+            <% if logged_in?  %>
+
+            <%= form_tag url_for(:action=>"create", :controller=>"likes"), method: "post" do %>
+
+            <%= hidden_field_tag 'gossip_id', j.id %>
+
+            <%= submit_tag "Like" %>
+
+              <% end %>
+
+            <%else %>
+
+            <% end %>
+
+            <% end%>
        
         </div>
 

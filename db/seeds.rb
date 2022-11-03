@@ -17,6 +17,8 @@
 User.destroy_all
 City.destroy_all
 Gossip.destroy_all
+Comment.destroy_all
+Like.destroy_all
 
 
 10.times do
@@ -29,10 +31,12 @@ cityf = City.first.id
     cityrand = rand(0..9) 
     citytotal = cityrand + cityf
     cool = City.find(citytotal)
-    us = User.create( first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::Lorem.sentence(word_count: 10), age: Faker::Number.between(from: 18, to: 40), email: Faker::Internet.email, city: cool)
+    us = User.create( first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::Lorem.sentence(word_count: 10), age: Faker::Number.between(from: 18, to: 40), email: Faker::Internet.email, city: cool, password: "test")
 end
 
+
 userf = User.first.id
+
 20.times do
     userrand = rand(0..9) 
     usertotal = userrand + userf
@@ -55,7 +59,17 @@ gosf = Gossip.first.id
     gos = Comment.create(content: Faker::Alphanumeric.alpha(number: 10), user: cool, gossip: cool2)
 end
 
+100.times do 
+    userrand = rand(0..9) 
+    usertotal = userrand + userf
+    cool = User.find(usertotal)
 
+    gosrand = rand(0..19) 
+    gostotal = gosrand + gosf
+    cool2 = Gossip.find(gostotal)
+
+    like = Like.create(user: cool, gossip: cool2)
+end
 
 =begin
 tagr = 0

@@ -9,6 +9,10 @@ class GossipsController < ApplicationController
     def show
         @gosid= Gossip.find(params[:id])
         @goscom = @gosid.comments
+
+        if  logged_in?
+        @like =  Like.find_by(gossip: params[:id], user: current_user.id)
+        end
    
     end
 

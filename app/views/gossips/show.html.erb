@@ -5,7 +5,7 @@
 
 <div class="card text-center">
   <div class="card-header">
-  Potin n°<%= @gosid.id  %>
+  Potin n°<%= @gosid.id  %> / Like: <%= @gosid.likes.count %>
   </div>
   <div class="card-body">
     <h5 class="card-title"><%= @gosid.title  %></h5>
@@ -16,11 +16,7 @@
     <br>
     <br>
     <p class="card-text"><a href="<%= city_path(@gosid.user.city.id)%>">Ecrit à: <%= @gosid.user.city.name  %></a> </p>
-    <%= form_tag url_for(action: 'destroy'), method: "delete" do %>
-
-      <%= submit_tag "Supprimer" %>
-
-    <% end %>
+    
   </div>
 
     <% if logged_in?  %>
@@ -28,6 +24,11 @@
           <% if current_user.id == @gosid.user.id %>
 
             <div class="card-footer text-muted"><a href="/gossips/<%= @gosid.id%>/edit"> Edit</a></div>
+            <%= form_tag url_for(action: 'destroy'), method: "delete" do %>
+
+                  <%= submit_tag "Supprimer" %>
+
+            <% end %>
 
           <%else %>
 
@@ -36,6 +37,38 @@
     <%else %>
 
     <% end %>
+
+
+    <% if @like %>
+
+     <% if @like.user.id == current_user.id && @like.gossip.id == @gosid.id %>
+
+      <%= form_tag url_for(:action=>"destroy", :controller=>"likes"), method: "delete" do %>
+
+                  <%= submit_tag "Unlike" %>
+
+            <% end %>
+
+      <%else %>
+
+      <% end %>
+      <%else %>
+      
+        <% if logged_in?  %>
+
+        <%= form_tag url_for(:action=>"create", :controller=>"likes"), method: "post" do %>
+
+        <%= hidden_field_tag 'gossip_id', @gosid.id %>
+
+          <%= submit_tag "Like" %>
+
+        <% end %>
+
+    <%else %>
+
+    <% end %>
+
+      <% end%>
 
 </div>
 
@@ -68,7 +101,7 @@
 
           <% if current_user.id == i.user.id %>
 
-            <div class="card-footer text-muted"><a href="/gossips/<%= @gosid.id%>/edit"> Edit</a></div>
+            <div class="card-footer text-muted"><a href=<%= edit_comment_path(i.id) %>> Edit</a></div>
 
           <%else %>
 
@@ -78,16 +111,11 @@
 
     <% end %>
 
-
-
     </div>
     <br>
 
     <% end %>
     
-
-
-
 </div>
 
  

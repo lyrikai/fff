@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'pages/author/:id', to: 'pages#author'
 
   resources :gossips
+  resources :likes, only: [:show, :create, :new, :destroy]
   resources :authors, only: [:show, :create, :new]
   resources :cities, only: [:show]
   resources :comments, only: [:edit, :update, :destroy, :create]

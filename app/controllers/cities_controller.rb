@@ -11,7 +11,13 @@ class CitiesController < ApplicationController
             k.each do |j|
                puts j.title
             end
+
+           
       
+        end
+
+        if  logged_in?
+            @like =  Like.find_by(gossip: params[:id], user: current_user.id)
         end
 
         

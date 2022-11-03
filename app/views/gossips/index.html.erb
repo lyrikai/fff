@@ -12,12 +12,54 @@
     <%  @gosall.each do |i|  %>
 
     <div class="card">
-        <h5 class="card-header">Potin n°<%= i.id  %> </h5>
+        <h5 class="card-header">Potin n°<%= i.id  %></h5>
         <div class="card-body">
         <h5 class="card-title">Title: <%= i.title  %></h5>
         <p class="card-text">Author: <%= i.user.first_name  %> </p>
         <a href="<%= gossip_path(i.id)%>" class="btn btn-primary">Voir</a>
-        <p class="card-text">Comment: <%= i.comments.count %> </p>
+        <p class="card-text">Comment: <%= i.comments.count %>   Like: <%= i.likes.count %> </p>
+
+         <% if logged_in? %>
+
+             <% @like =  Like.find_by(gossip: i.id, user: current_user.id) %>
+
+          <% end %>
+
+            <% if @like %>
+               
+
+              <% if @like.user.id == current_user.id && @like.gossip.id == i.id %>
+
+
+     
+
+
+              <%else %>
+
+              <% end %>
+
+            <%else %>
+      
+            <% if logged_in?  %>
+
+            <%= form_tag url_for(:action=>"create", :controller=>"likes"), method: "post" do %>
+
+            <%= hidden_field_tag 'gossip_id', i.id %>
+
+            <%= submit_tag "Like" %>
+
+              <% end %>
+
+            <%else %>
+
+            <% end %>
+
+            <% end%>
+
+
+
+
+
         </div>
     </div>
     <br>
